@@ -1,21 +1,21 @@
 import React from 'react';
 import Link from 'next/link';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+// import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+// import { cookies } from 'next/headers';
+// import { redirect } from 'next/navigation';
 
 export default async function AuthLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	const supabase = createServerComponentClient({ cookies });
-	const { data } = await supabase.auth.getSession();
+	// const supabase = createServerComponentClient({ cookies });
+	//const { data } = await supabase.auth.getSession();
 
 	// redirect authenticated users to dashboard
-	if (data.session) {
-		redirect('/');
-	}
+	// if (data.session) {
+	// 	redirect('/');
+	// }
 
 	return (
 		<>
