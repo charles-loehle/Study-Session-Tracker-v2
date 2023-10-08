@@ -22,6 +22,16 @@ export default function Home() {
 	const [totalStudyTime, setTotalStudyTime] = useState<number>(0);
 	const [orderBy, setOrderBy] = useState('created_at');
 
+	const handleDelete = (id: number) => {
+		setStudySessions((prev: StudySession[] | null) => {
+			if (prev) {
+				return prev.filter(item => item.id !== id);
+			} else {
+				return null;
+			}
+		});
+	};
+
 	useEffect(() => {
 		async function fetchData() {
 			try {
@@ -101,7 +111,11 @@ export default function Home() {
 
 					<div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 						{studySessions.map(studySession => (
-							<StudyCard key={studySession.id} studySession={studySession} />
+							<StudyCard
+								key={studySession.id}
+								studySession={studySession}
+								onDelete={handleDelete}
+							/>
 						))}
 					</div>
 				</div>

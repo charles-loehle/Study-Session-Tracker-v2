@@ -8,7 +8,8 @@ import supabase from '../config/supabaseClient';
 import { useRouter } from 'next/navigation';
 // import { useState, useEffect } from 'react';
 
-type StudySessionProps = {
+//defines the shape of a study session
+type StudySession = {
 	title: string;
 	description: string;
 	study_time: number;
@@ -16,11 +17,16 @@ type StudySessionProps = {
 	id: number;
 };
 
+// defines the props that the StudyCard component expects: a studySession object and an onDelete function.
+type StudyCardComponentProps = {
+	studySession: StudySession;
+	onDelete: (id: number) => void;
+};
+
 export default function StudyCard({
 	studySession,
-}: {
-	studySession: StudySessionProps;
-}) {
+	onDelete,
+}: StudyCardComponentProps) {
 	//const supabaseBrowser = createPagesBrowserClient();
 	//console.log(studySession.id);
 	const id = studySession.id;
@@ -56,6 +62,7 @@ export default function StudyCard({
 		}
 		if (data) {
 			console.log(data);
+			onDelete(studySession.id);
 		}
 	};
 
