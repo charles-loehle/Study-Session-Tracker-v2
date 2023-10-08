@@ -1,7 +1,10 @@
 import Link from 'next/link';
-// import LogoutButton from './LogoutButton';
+import LogoutButton from './LogoutButton';
 
-export default function Navbar({ user }: any) {
+// export default function Navbar({ user }: any) {
+//console.log(user);
+
+export default function Navbar() {
 	return (
 		<nav className="navbar navbar-expand-md mb-4 border-bottom">
 			<div className="container-fluid">
@@ -26,10 +29,36 @@ export default function Navbar({ user }: any) {
 								Create New Study Session
 							</Link>
 						</li>
+
+						{/* {user && (
+							<li className="nav-item">
+								<Link className="nav-link" href="/create">
+									Create New Study Session
+								</Link>
+							</li>
+						)} */}
+						{/* {!user && (
+							<>
+								<li className="nav-item">
+									<Link className="nav-link" href="/login">
+										Log in
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link className="nav-link" href="/signup">
+										Sign up
+									</Link>
+								</li>
+							</>
+						)} */}
 					</ul>
 					{/* <div className="d-flex align-items-center">
-						{user && <p className="me-4 mb-0">Hello, {user.email}</p>}
-						<LogoutButton />
+						{user && (
+							<>
+								<p className="me-4 mb-0">Hello, {user.email}</p>
+								<LogoutButton />
+							</>
+						)}
 					</div> */}
 				</div>
 			</div>

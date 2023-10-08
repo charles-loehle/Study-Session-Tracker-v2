@@ -4,7 +4,9 @@ import { formatTime } from '../lib/timeFunctions';
 import Link from 'next/link';
 import { MouseEvent } from 'react';
 import supabase from '../config/supabaseClient';
+// import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
+// import { useState, useEffect } from 'react';
 
 type StudySessionProps = {
 	title: string;
@@ -19,9 +21,28 @@ export default function StudyCard({
 }: {
 	studySession: StudySessionProps;
 }) {
+	//const supabaseBrowser = createPagesBrowserClient();
 	//console.log(studySession.id);
 	const id = studySession.id;
 	const router = useRouter();
+	//const [userEmail, setUserEmail] = useState<string>('');
+	// const [disabled, setDisabled] = useState<boolean>(true);
+
+	// useEffect(() => {
+	// 	const getUserData = async () => {
+	// 		const {
+	// 			data: { user },
+	// 		} = await supabaseBrowser.auth.getUser();
+	// 		//console.log(user?.email);
+	// 		setUserEmail(user?.email || '');
+	// 	};
+
+	// 	getUserData();
+	// 	// console.log(userEmail);
+	// 	// if (userEmail) {
+	// 	// 	setDisabled(false);
+	// 	// }
+	// }, [supabaseBrowser.auth, userEmail]);
 
 	const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
 		const { data, error } = await supabase
@@ -53,9 +74,11 @@ export default function StudyCard({
 							{formatTime(studySession.study_time)}
 						</small>
 					</p>
-					<Link href={`/${studySession.id}`} className="btn btn-primary">
+
+					<Link href={`/${studySession.id}`} className={`btn btn-primary`}>
 						edit
 					</Link>
+
 					<button
 						onClick={handleDelete}
 						type="button"

@@ -1,30 +1,31 @@
 {
-  "name": "supabase-crash-course",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@supabase/auth-helpers-nextjs": "^0.8.1",
-    "@supabase/supabase-js": "^2.33.2",
-    "@types/node": "20.6.2",
-    "@types/react": "18.2.21",
-    "@types/react-datepicker": "^4.15.0",
-    "@types/react-dom": "18.2.7",
-    "bootstrap": "^5.3.2",
-    "bootstrap-icons": "^1.11.1",
-    "encoding": "^0.1.13",
-    "eslint": "8.49.0",
-    "eslint-config-next": "13.4.19",
-    "next": "13.4.19",
-    "react": "18.2.0",
-    "react-datepicker": "^4.18.0",
-    "react-dom": "18.2.0",
-    "sass": "^1.67.0",
-    "typescript": "5.2.2"
-  }
+	"name": "study-session-tracker",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@supabase/auth-helpers-nextjs": "^0.8.1",
+		"@supabase/supabase-js": "^2.33.2",
+		"@types/node": "20.6.2",
+		"@types/react": "18.2.21",
+		"@types/react-datepicker": "^4.15.0",
+		"@types/react-dom": "18.2.7",
+		"bootstrap": "^5.3.2",
+		"bootstrap-icons": "^1.11.1",
+		"encoding": "^0.1.13",
+		"eslint": "8.49.0",
+		"eslint-config-next": "13.4.19",
+		"next": "13.4.19",
+		"react": "18.2.0",
+		"react-datepicker": "^4.18.0",
+		"react-dom": "18.2.0",
+		"sass": "^1.67.0",
+		"typescript": "5.2.2"
+	}
 }
+

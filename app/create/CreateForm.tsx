@@ -5,9 +5,13 @@ import { useState, useEffect, FormEvent } from 'react';
 import DateRangePicker from './DateRangePicker';
 import { calculateTimeElapsed } from '../lib/timeFunctions';
 import supabase from '../config/supabaseClient';
+// import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 
 export default function CreateForm() {
+	//const supabaseBrowser = createPagesBrowserClient();
+
 	const router = useRouter();
+	const [userEmail, setUserEmail] = useState<string>('');
 	const [title, setTitle] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -18,14 +22,19 @@ export default function CreateForm() {
 		useState<number>(0);
 	const [error, setError] = useState<string | null>(null);
 
-	//console.log(startDate);
-
 	useEffect(() => {
+		// const getUserData = async () => {
+		// 	const {
+		// 		data: { user },
+		// 	} = await supabaseBrowser.auth.getUser();
+		//console.log(user?.email);
+		// 	setUserEmail(user?.email || '');
+		// };
 		// Calculate elapsed time whenever startDate or endDate changes
 		if (startDate !== null && endDate !== null) {
 			setElapsedTimeInMilliseconds(endDate.getTime() - startDate.getTime());
 		}
-
+		// getUserData();
 		setElapsedTime(calculateTimeElapsed(startDate, endDate));
 	}, [startDate, endDate]);
 
@@ -46,6 +55,7 @@ export default function CreateForm() {
 			study_time: elapsedTimeInMilliseconds,
 			startDate: startDate,
 			endDate: endDate,
+			user_email: userEmail,
 		};
 
 		const response = await supabase

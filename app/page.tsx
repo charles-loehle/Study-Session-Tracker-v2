@@ -41,7 +41,7 @@ export default function Home() {
 			}
 		}
 		fetchData();
-	}, [studySessions, orderBy]);
+	}, [orderBy]);
 
 	return (
 		<main className="Home container">
