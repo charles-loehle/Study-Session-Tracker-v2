@@ -3,6 +3,7 @@
 import supabase from './config/supabaseClient';
 import { useEffect, useState } from 'react';
 import StudyCard from './components/StudyCard';
+import { formatTime } from './lib/timeFunctions';
 
 type StudySession = {
 	id: number;
@@ -18,6 +19,7 @@ export default function Home() {
 	const [studySessions, setStudySessions] = useState<StudySession[] | null>(
 		null
 	);
+	const [totalStudyTime, setTotalStudyTime] = useState<number>(0);
 	const [orderBy, setOrderBy] = useState('created_at');
 
 	useEffect(() => {
@@ -33,8 +35,6 @@ export default function Home() {
 				}
 				setStudySessions(data);
 				setFetchError('');
-
-				//console.log('Fetched data:', data);
 			} catch (error) {
 				console.error('Error fetching data:', error);
 				setFetchError('Could not fetch data...');
@@ -43,11 +43,24 @@ export default function Home() {
 		fetchData();
 	}, [orderBy]);
 
+	useEffect(() => {
+		if (studySessions) {
+			// Calculate the totalStudyTime
+			const total = studySessions.reduce(
+				(acc, curr) => acc + curr.study_time,
+				0
+			);
+			setTotalStudyTime(total);
+		}
+	}, [studySessions]);
+
 	return (
 		<main className="Home container">
 			<h1>Home</h1>
 			<p>All Study Sessions</p>
 
+			<p>Total Study Time: {formatTime(totalStudyTime)}</p>
+			<p>Today&apos;s Total: </p>
 			{fetchError && <p>{fetchError}</p>}
 			{studySessions && (
 				<div className="study-sessions">
