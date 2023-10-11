@@ -21,6 +21,7 @@ export default function Home() {
 	);
 	const [totalStudyTime, setTotalStudyTime] = useState<number>(0);
 	const [orderBy, setOrderBy] = useState('created_at');
+	const [todaysTotalTime, setTodaysTotalTime] = useState<number>(0);
 
 	const handleDelete = (id: number) => {
 		setStudySessions((prev: StudySession[] | null) => {
@@ -54,6 +55,38 @@ export default function Home() {
 	}, [orderBy]);
 
 	useEffect(() => {
+		async function fetchData() {
+			const today = new Date();
+			// set date's time at 0
+			today.setHours(0, 0, 0, 0);
+
+			try {
+				const { data, error } = await supabase
+					.from('studysessions')
+					.select()
+					// only get items by the created_at column where its value is greater than or equal (gte) to today. Using toISOString method to return a standardized date format recognized by most databases
+					.filter('created_at', 'gte', today.toISOString())
+					.order(orderBy, { ascending: false });
+
+				if (error) {
+					throw error;
+				}
+				// Calculate the totalStudyTime for today's sessions
+				console.log(data);
+
+				const total = data.reduce((acc, curr) => acc + curr.study_time, 0);
+
+				setTodaysTotalTime(total);
+				setFetchError('');
+			} catch (error) {
+				console.error('Error fetching data:', error);
+				setFetchError('Could not fetch data...');
+			}
+		}
+		fetchData();
+	}, [orderBy]);
+
+	useEffect(() => {
 		if (studySessions) {
 			// Calculate the totalStudyTime
 			const total = studySessions.reduce(
@@ -61,20 +94,19 @@ export default function Home() {
 				0
 			);
 			setTotalStudyTime(total);
+			const date = new Date();
 		}
 	}, [studySessions]);
 
 	return (
 		<main className="Home container">
 			<h1>Home</h1>
-			<p>All Study Sessions</p>
-
 			<p>Total Study Time: {formatTime(totalStudyTime)}</p>
-			<p>Today&apos;s Total: </p>
+			<p>Today&apos;s Total: {formatTime(todaysTotalTime)}</p>
 			{fetchError && <p>{fetchError}</p>}
 			{studySessions && (
 				<div className="study-sessions">
-					<p>Order by:</p>
+					<p className="me-4">Order by:</p>
 					<div
 						className="btn-group mb-4"
 						role="group"
