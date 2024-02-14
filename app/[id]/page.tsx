@@ -137,7 +137,7 @@ export default function Update({ params }: { params: { id: string } }) {
 						</div>
 					)}
 				</div>
-				<button disabled={isLoading} type="submit" className="btn btn-primary">
+				<button disabled={isLoading} type="submit" className="btn btn-dark">
 					{isLoading && <span>Updating...</span>}
 					{!isLoading && <span>Update Study Session</span>}
 				</button>

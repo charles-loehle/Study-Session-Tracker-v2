@@ -3,7 +3,7 @@
 import supabase from './config/supabaseClient';
 import { useEffect, useState } from 'react';
 import StudyCard from './components/StudyCard';
-import { formatTime } from './lib/timeFunctions';
+import { formatTimeSentence, formatSequentialTime } from './lib/timeFunctions';
 
 type StudySession = {
 	id: number;
@@ -33,6 +33,7 @@ export default function Home() {
 		});
 	};
 
+	// get all sessions
 	useEffect(() => {
 		async function fetchData() {
 			try {
@@ -54,6 +55,7 @@ export default function Home() {
 		fetchData();
 	}, [orderBy]);
 
+	// get today's session total time
 	useEffect(() => {
 		async function fetchData() {
 			const today = new Date();
@@ -72,8 +74,6 @@ export default function Home() {
 					throw error;
 				}
 				// Calculate the totalStudyTime for today's sessions
-				console.log(data);
-
 				const total = data.reduce((acc, curr) => acc + curr.study_time, 0);
 
 				setTodaysTotalTime(total);
@@ -86,9 +86,9 @@ export default function Home() {
 		fetchData();
 	}, [orderBy]);
 
+	// add up all session times
 	useEffect(() => {
 		if (studySessions) {
-			// Calculate the totalStudyTime
 			const total = studySessions.reduce(
 				(acc, curr) => acc + curr.study_time,
 				0
@@ -100,9 +100,22 @@ export default function Home() {
 
 	return (
 		<main className="Home container">
-			<h1>Home</h1>
-			<p>Total Study Time: {formatTime(totalStudyTime)}</p>
-			<p>Today&apos;s Total: {formatTime(todaysTotalTime)}</p>
+			<h1>Study Session List</h1>
+			<div className="d-flex">
+				<div>
+					<p className="text-body-tertiary mb-0">Total</p>
+					<p className="fw-bolder fs-4">
+						{formatSequentialTime(totalStudyTime)}
+					</p>
+				</div>
+				<div>
+					<p className="text-body-tertiary mb-0">Today</p>
+					<p className="fw-bolder fs-4">
+						{formatSequentialTime(todaysTotalTime)}
+					</p>
+				</div>
+			</div>
+
 			{fetchError && <p>{fetchError}</p>}
 			{studySessions && (
 				<div className="study-sessions">
@@ -115,7 +128,7 @@ export default function Home() {
 						<button
 							onClick={() => setOrderBy('created_at')}
 							type="button"
-							className={`btn btn-outline-primary ${
+							className={`btn btn-outline-dark ${
 								orderBy === 'created_at' ? 'active' : ''
 							}`}
 						>
@@ -124,7 +137,7 @@ export default function Home() {
 						<button
 							onClick={() => setOrderBy('title')}
 							type="button"
-							className={`btn btn-outline-primary ${
+							className={`btn btn-outline-dark ${
 								orderBy === 'title' ? 'active' : ''
 							}`}
 						>
@@ -133,7 +146,7 @@ export default function Home() {
 						<button
 							onClick={() => setOrderBy('study_time')}
 							type="button"
-							className={`btn btn-outline-primary ${
+							className={`btn btn-outline-dark ${
 								orderBy === 'study_time' ? 'active' : ''
 							}`}
 						>
@@ -142,8 +155,10 @@ export default function Home() {
 					</div>
 
 					<div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-						{studySessions.map(studySession => (
+						{studySessions.map((studySession, i) => (
 							<StudyCard
+								bgColor={i % 2 === 0 ? 'primary' : 'secondary'}
+								textColor={i % 2 === 0 ? 'light' : 'dark'}
 								key={studySession.id}
 								studySession={studySession}
 								onDelete={handleDelete}

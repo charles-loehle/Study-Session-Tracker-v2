@@ -6,10 +6,16 @@ import LogoutButton from './LogoutButton';
 
 export default function Navbar() {
 	return (
-		<nav className="navbar navbar-expand-md mb-4 border-bottom">
+		<nav className="navbar bg-body-tertiary">
 			<div className="container-fluid">
 				<Link className="navbar-brand text-primary" href="/">
-					Study Tracker
+					<i className="bi bi-house"></i>
+				</Link>
+				<Link className="" href="/create">
+					<i
+						className="bi bi-plus-circle-fill"
+						style={{ fontSize: '3rem' }}
+					></i>
 				</Link>
 				<button
 					className="navbar-toggler"
@@ -36,8 +42,8 @@ export default function Navbar() {
 									Create New Study Session
 								</Link>
 							</li>
-						)} */}
-						{/* {!user && (
+						)}
+						{!user && (
 							<>
 								<li className="nav-item">
 									<Link className="nav-link" href="/login">
@@ -50,16 +56,16 @@ export default function Navbar() {
 									</Link>
 								</li>
 							</>
-						)} */}
+						)}
 					</ul>
-					{/* <div className="d-flex align-items-center">
+					<div className="d-flex align-items-center">
 						{user && (
 							<>
 								<p className="me-4 mb-0">Hello, {user.email}</p>
 								<LogoutButton />
 							</>
-						)}
-					</div> */}
+						)} */}
+					</ul>
 				</div>
 			</div>
 		</nav>

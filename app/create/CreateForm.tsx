@@ -127,7 +127,7 @@ export default function CreateForm() {
 						</div>
 					)}
 				</div>
-				<button disabled={isLoading} type="submit" className="btn btn-primary">
+				<button disabled={isLoading} type="submit" className="btn btn-dark">
 					{isLoading && <span>Adding...</span>}
 					{!isLoading && <span>Add Study Session</span>}
 				</button>

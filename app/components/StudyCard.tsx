@@ -1,6 +1,6 @@
 'use client';
 
-import { formatTime } from '../lib/timeFunctions';
+import { formatTimeSentence } from '../lib/timeFunctions';
 import Link from 'next/link';
 import { MouseEvent } from 'react';
 import supabase from '../config/supabaseClient';
@@ -19,11 +19,15 @@ type StudySession = {
 
 // defines the props that the StudyCard component expects: a studySession object and an onDelete function.
 type StudyCardComponentProps = {
+	bgColor: string;
+	textColor: string;
 	studySession: StudySession;
 	onDelete: (id: number) => void;
 };
 
 export default function StudyCard({
+	textColor,
+	bgColor,
 	studySession,
 	onDelete,
 }: StudyCardComponentProps) {
@@ -68,8 +72,10 @@ export default function StudyCard({
 
 	return (
 		<div className="col">
-			<div className="card">
+			{/* <div className="card rounded-5 bg-primary"> */}
+			{/* <div className={`card rounded-5 bg-${color}`}>
 				<div className="card-header">
+					<i className="bi bi-clock pe-2"></i>
 					{new Date(studySession.created_at).toDateString()}
 				</div>
 				<div className="card-body">
@@ -77,24 +83,53 @@ export default function StudyCard({
 					<p className="card-text">{studySession.description}</p>
 					<p className="card-text">
 						<small className="text-body-secondary">
-							{' '}
-							{formatTime(studySession.study_time)}
+							<i className="bi bi-stopwatch pe-2"></i>
+							{formatTimeSentence(studySession.study_time)}
 						</small>
 					</p>
 
-					<Link href={`/${studySession.id}`} className={`btn btn-primary`}>
+					<Link href={`/${studySession.id}`} className={`btn btn-dark`}>
 						edit
 					</Link>
 
-					<button
-						onClick={handleDelete}
-						type="button"
-						className="ms-2 btn btn-secondary"
-					>
+					<button onClick={handleDelete} type="button" className="ms-2 btn">
 						<i className="bi bi-trash3"></i>
 					</button>
 				</div>
-			</div>
+			</div> */}
+			<Link className="card-link rounded-5" href={`/${studySession.id}`}>
+				<div className={`card rounded-5 bg-${bgColor}`}>
+					<div className="card-body p-4">
+						<h3 className={`card-title fs-2 text-${textColor}`}>
+							{studySession.title}
+						</h3>
+						<p className={`card-text fs-62 text-${textColor}`}>
+							{studySession.description}
+						</p>
+						<p className={`card-text text-${textColor}`}>
+							<i className="bi bi-stopwatch pe-2 text-white fs-2"></i>
+							<span className="fs-4">
+								{formatTimeSentence(studySession.study_time)}
+							</span>
+						</p>
+						<p className={`card-text text-${textColor}`}>
+							<i className="bi bi-clock pe-2 text-white fs-4"></i>
+							<span className="fs-4">
+								{new Date(studySession.created_at).toDateString()}
+							</span>
+						</p>
+
+						{/* <Link href={`/${studySession.id}`} className={`btn btn-dark`}>
+						edit
+					</Link> */}
+						<div className="d-flex justify-content-center">
+							<button onClick={handleDelete} type="button" className="ms-2 btn">
+								<i className="bi bi-trash3"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</Link>
 		</div>
 	);
 }

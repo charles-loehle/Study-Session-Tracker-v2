@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Create() {
 	return (
-		<main className="container">
+		<main className="Create container">
 			<h2 className="text-primary text-center">Add a New Study Session</h2>
 			<CreateForm />
 		</main>

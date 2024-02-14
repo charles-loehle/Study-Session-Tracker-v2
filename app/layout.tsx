@@ -32,9 +32,7 @@ export default async function RootLayout({
 					async
 				></script>
 			</head>
-			<body
-				className={`RootLayout bg-secondary container px-2 py-5 ${rubik.className}`}
-			>
+			<body className={`RootLayout ${rubik.className}`}>
 				{/* <Navbar user={data.session?.user} /> */}
 				<Navbar />
 				{children}

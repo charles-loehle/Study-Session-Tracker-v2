@@ -19,7 +19,7 @@ export default function LogoutButton() {
 	};
 
 	return (
-		<button className="btn btn-primary" onClick={handleLogout}>
+		<button className="btn btn-dark" onClick={handleLogout}>
 			Logout
 		</button>
 	);

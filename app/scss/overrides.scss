@@ -1,5 +1,6 @@
 $primary: #793fdf;
-$secondary: #f1f4ff;
+$secondary: #fbc036;
+$accent: #00120b;
 
 .loader {
 	display: flex;
@@ -21,6 +22,10 @@ $secondary: #f1f4ff;
 	to {
 		transform: rotate(360deg);
 	}
+}
+
+.card-link {
+	text-decoration: none;
 }
 
 /* import bootstrap to set changes */
